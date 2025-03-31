@@ -16,6 +16,6 @@ public class DeploymentSprint extends Sprint {
     }
 
     public void checkDeployment() {
-        // ...implementation...
+        System.out.println("Deployment goed!");
     }
 }

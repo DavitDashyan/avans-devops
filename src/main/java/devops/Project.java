@@ -12,6 +12,11 @@ public class Project {
     private ProjectBacklog projectBacklog;
     private List<Sprint> sprints;
     private List<Persoon> team;
+    private IVersionControl versionControl;
+
+    public Project(IVersionControl versionControl) {
+        this.versionControl = versionControl;
+    }
 
     public void addTeamMember(Persoon teamMember) {
         team.add(teamMember);
@@ -41,6 +46,26 @@ public class Project {
         // Add the sprint to the project
         sprints.add(sprint);
         return sprint;
+    }
+
+    public void commitBacklogItem(String message, BacklogItem item) {
+        versionControl.commit(message, item);
+    }
+
+    public void pushChanges() {
+        versionControl.push();
+    }
+
+    public void pullChanges() {
+        versionControl.pull();
+    }
+
+    public void createBranch(String name) {
+        versionControl.createBranch(name);
+    }
+
+    public void mergeBranches(String fromBranch, String toBranch) {
+        versionControl.merge(fromBranch, toBranch);
     }
 
     public void getProjectDetails() {
