@@ -3,8 +3,8 @@ package devops;
 import java.util.Date;
 import java.util.List;
 
+import devops.generateReport.*;
 import devops.sprintState.CreateState;
-import devops.report.*;
 
 public abstract class Sprint {
     protected int id;
