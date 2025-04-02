@@ -1,65 +1,131 @@
 package devops;
 
-import java.util.Scanner;
+import devops.backlogItemState.ToDoState;
+import devops.backlogItemState.TestedState;
+import devops.backlogItemState.ReadyForTestingState;
+
+import java.util.Date;
 
 public class App {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Sprint sprint = new ReviewSprint();
-        boolean running = true;
+        // Create a project
+        IVersionControl versionControl = new GitAdapter(new GitService());
+        Project project = new Project(1, "DevOps Project", "A project for DevOps practices", new Date(), new Date(), versionControl);
 
-        System.out.println("Welkom bij het DevOps CLI-systeem!");
-        while (running) {
-            System.out.println("\nKies een optie:");
-            System.out.println("1. Start Sprint");
-            System.out.println("2. Finish Sprint");
-            System.out.println("3. Cancel Sprint");
-            System.out.println("4. Lock Sprint");
-            System.out.println("5. Close Sprint");
-            System.out.println("6. Genereer Rapport");
-            System.out.println("7. Exit");
+        System.out.println("Project created:");
+        project.getProjectDetails();
 
-            System.out.print("Uw keuze: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+        // Create a backlog item and add it to the project backlog
+        BacklogItem backlogItem = new BacklogItem(1, "Implement Login Feature", "Develop the login functionality for the application.", 1);
+        project.getProjectBacklog().addBacklogItem(backlogItem);
 
-            switch (choice) {
-                case 1:
-                    sprint.startSprint();
-                    break;
-                case 2:
-                    sprint.finishSprint();
-                    break;
-                case 3:
-                    sprint.cancelSprint();
-                    break;
-                case 4:
-                    sprint.lockSprint();
-                    break;
-                case 5:
-                    sprint.closeSprint();
-                    break;
-                case 6:
-                    System.out.print("Voer rapporttype in (burndownchart, effortpoints, teamsamenstelling): ");
-                    String reportType = scanner.nextLine();
-                    System.out.print("Voer formaat in (pdf, png): ");
-                    String format = scanner.nextLine();
-                    try {
-                        Report report = sprint.generateReport(reportType, format);
-                        report.display();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Fout: " + e.getMessage());
-                    }
-                    break;
-                case 7:
-                    running = false;
-                    System.out.println("Afsluiten...");
-                    break;
-                default:
-                    System.out.println("Ongeldige keuze. Probeer opnieuw.");
+        System.out.println("\nBacklog item added to project backlog:");
+        backlogItem.getDetails();
+
+        // Create a sprint and its sprint backlog
+        Sprint sprint = project.createSprint("review", "Sprint 1", "First sprint for review", new Date(), new Date());
+        SprintBacklog sprintBacklog = new SprintBacklog(sprint);
+
+        System.out.println("\nSprint created:");
+        System.out.println("Sprint Name: " + sprint.name);
+        System.out.println("Sprint Start Date: " + sprint.startDatum);
+        System.out.println("Sprint End Date: " + sprint.endDatum);
+
+        // Assign a developer to the backlog item at the sprint level
+        Developer developer = new Developer();
+        sprintBacklog.addBacklogItem(backlogItem, developer);
+
+        System.out.println("\nBacklog item added to sprint backlog and assigned to developer:");
+        sprintBacklog.getSprintBacklog();
+
+        // Start the sprint
+        sprint.startSprint();
+        System.out.println("\nSprint started. Current status: " + sprint.getStatus());
+
+        // Simulate backlog item transitions
+        System.out.println("\nTransitioning backlog item states:");
+        backlogItem.moveToNextState(); // To Doing
+        System.out.println("Backlog Item State: Doing");
+
+        backlogItem.moveToNextState(); // To ReadyForTesting
+        System.out.println("Backlog Item State: ReadyForTesting");
+
+        // Notify testers
+        Tester tester = new Tester();
+        tester.statePutToDo();
+
+        // Simulate tester finding an issue and moving the item back to ToDo
+        backlogItem.moveToFirstState(); // Back to ToDo
+        System.out.println("Backlog Item State: ToDo");
+
+        // Simulate testing and moving to Tested
+        backlogItem.moveToNextState(); // To Doing
+        backlogItem.moveToNextState(); // To ReadyForTesting
+        backlogItem.moveToNextState(); // To Testing
+        backlogItem.moveToNextState(); // To Tested
+        System.out.println("Backlog Item State: Tested");
+
+        // Lead developer checks definition of done
+        LeadDeveloper leadDeveloper = new LeadDeveloper();
+        leadDeveloper.statusPutDone();
+
+        // Simulate moving to Done
+        backlogItem.moveToNextState(); // To Done
+        System.out.println("Backlog Item State: Done");
+
+        // End the sprint
+        sprint.finishSprint();
+        System.out.println("\nSprint finished. Current status: " + sprint.getStatus());
+
+        // Handle review or release process
+        if (sprint instanceof ReviewSprint) {
+            System.out.println("\nStarting review process...");
+            sprint.startReview();
+            System.out.println("Sprint moved to review phase. Current status: " + sprint.getStatus());
+
+            // Upload review document
+            Document reviewDocument = new Document(1, "Sprint Review Summary", "Summary of the sprint review.", "pdf", new Date());
+            ((ReviewSprint) sprint).uploadReview(reviewDocument);
+            System.out.println("Review document uploaded.");
+
+            // Close the sprint after review
+            sprint.closeSprint();
+            System.out.println("Sprint closed. Current status: " + sprint.getStatus());
+        } else if (sprint instanceof DeploymentSprint) {
+            System.out.println("\nStarting release process...");
+            sprint.startRelease();
+            System.out.println("Sprint moved to release phase. Current status: " + sprint.getStatus());
+
+            // Simulate pipeline execution
+            Pipeline pipeline = new Pipeline();
+            sprint.startPipeline(pipeline);
+
+            boolean pipelineSuccess = pipeline.startPipeline();
+
+            if (pipelineSuccess) {
+                System.out.println("Pipeline executed successfully. Sprint released.");
+                sprint.closeSprint();
+                System.out.println("Sprint closed. Current status: " + sprint.getStatus());
+            } else {
+                System.out.println("Pipeline execution failed. Notifying Scrum Master and Product Owner...");
+                INotificationService emailService = new EmailNotificationService();
+                NotificationManager notificationManager = new NotificationManager(emailService);
+                notificationManager.update();
             }
         }
 
-        scanner.close();
+        // Handle discussions related to backlog items
+        System.out.println("\nHandling discussions for backlog items...");
+        Discussion discussion = new Discussion();
+        Thread thread = new Thread(backlogItem); // Pass the backlogItem to the thread constructor
+        thread.lockIfBacklogItemDone();
+        backlogItem.moveToFirstState(); // Back to ToDo
+        thread.unlockIfBacklogItemNotDone();
+
+        Message message = new Message(1, "This is a discussion message.", developer, new Date(), thread);
+
+        thread.addMessage(message);
+        discussion.addThread(thread);
+        System.out.println("Discussion and messages added successfully.");
     }
 }

@@ -13,4 +13,16 @@ public class NotificationManager implements IObserver {
     public void update() {
         notificationService.sendNotification("A new event occurred.");
     }
+
+    public void notifyTesters(String message) {
+        notificationService.sendNotification("Notification to Testers: " + message);
+    }
+
+    public void notifyScrumMaster(String message) {
+        notificationService.sendNotification("Notification to Scrum Master: " + message);
+    }
+
+    public void notifyProductOwner(String message) {
+        notificationService.sendNotification("Notification to Product Owner: " + message);
+    }
 }

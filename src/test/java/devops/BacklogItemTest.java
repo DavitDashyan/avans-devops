@@ -11,7 +11,7 @@ class BacklogItemTest {
 
     @BeforeEach
     void setUp() {
-        backlogItem = new BacklogItem();
+        backlogItem = new BacklogItem(1, "Test Backlog Item", "This is a test backlog item.", 1);
     }
 
     @Test

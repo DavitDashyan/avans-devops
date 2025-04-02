@@ -1,5 +1,6 @@
 package devops;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +15,16 @@ public class Project {
     private List<Person> team;
     private IVersionControl versionControl;
 
-    public Project(IVersionControl versionControl) {
+    public Project(int id, String title, String description, Date startDate, Date endDate, IVersionControl versionControl) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.versionControl = versionControl;
+        this.projectBacklog = new ProjectBacklog(this);
+        this.sprints = new ArrayList<>();
+        this.team = new ArrayList<>();
     }
 
     public void addTeamMember(Person teamMember) {
@@ -71,5 +80,9 @@ public class Project {
         System.out.println("Description: " + description);
         System.out.println("Start Date: " + startDate);
         System.out.println("End Date: " + endDate);
+    }
+
+    public ProjectBacklog getProjectBacklog() {
+        return projectBacklog;
     }
 }

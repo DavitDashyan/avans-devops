@@ -5,6 +5,7 @@ import java.util.List;
 import devops.backlogItemState.SprintBacklogItemState;
 import devops.backlogItemState.ToDoState;
 import devops.backlogItemState.ReadyForTestingState;
+import devops.backlogItemState.TestedState;
 
 public class BacklogItem {
     private int id;
@@ -13,9 +14,15 @@ public class BacklogItem {
     private int priority;
     private Person developer;
     private List<SubItem> subItems;
-    private SprintBacklogItemState sprintBacklogItemState;
-    private boolean inSprintBacklog;
     private SprintBacklogItemState state = new ToDoState();
+    private boolean inSprintBacklog;
+
+    public BacklogItem(int id, String title, String description, int priority) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.priority = priority;
+    }
 
     public void addSubitem(SubItem subItem, BacklogItem backlogItem) {
         subItems.add(subItem);
@@ -45,7 +52,15 @@ public class BacklogItem {
     }
 
     public void moveToNextState() {
+        if (state instanceof TestedState && !areAllSubItemsDone()) {
+            System.out.println("Cannot move to Done state. Not all sub-items are marked as done.");
+            return;
+        }
         state.nextState(this);
+    }
+
+    private boolean areAllSubItemsDone() {
+        return subItems != null && subItems.stream().allMatch(SubItem::isDone);
     }
 
     public void moveToFinalState() {
@@ -54,5 +69,13 @@ public class BacklogItem {
 
     public SprintBacklogItemState getState() {
         return state;
+    }
+
+    public void setDeveloper(Person developer) {
+        this.developer = developer;
+    }
+
+    public Person getDeveloper() {
+        return developer;
     }
 }

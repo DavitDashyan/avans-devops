@@ -87,4 +87,21 @@ public abstract class Sprint {
             throw new IllegalArgumentException("Invalid format: " + format);
         }
     }
+
+    public void startPipeline(Pipeline pipeline) {
+        if (!state.getStatus().equals("Finished")) {
+            throw new IllegalStateException("Pipeline can only be started after the sprint is finished.");
+        }
+        System.out.println("Starting pipeline...");
+        boolean success = pipeline.startPipeline();
+        if (success) {
+            System.out.println("Pipeline executed successfully. Sprint released.");
+            closeSprint();
+        } else {
+            System.out.println("Pipeline execution failed. Notifying Scrum Master and Product Owner...");
+            INotificationService emailService = new EmailNotificationService();
+            NotificationManager notificationManager = new NotificationManager(emailService);
+            notificationManager.update();
+        }
+    }
 }

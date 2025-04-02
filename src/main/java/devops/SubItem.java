@@ -8,6 +8,14 @@ public class SubItem {
     private Person assignedPerson;
     private BacklogItem parentBacklogItem;
 
+    public SubItem(int id, String title, String description, Person assignedPerson) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.assignedPerson = assignedPerson;
+        this.done = false;
+    }
+
     public void changeState() {
         this.done = !this.done;
     }
@@ -22,5 +30,9 @@ public class SubItem {
 
     public void setParentBacklogItem(BacklogItem parentBacklogItem) {
         this.parentBacklogItem = parentBacklogItem;
+    }
+
+    public boolean isDone() {
+        return done;
     }
 }
