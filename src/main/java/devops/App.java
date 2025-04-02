@@ -20,7 +20,6 @@ public class App {
             System.out.println("7. Exit");
 
             System.out.print("Uw keuze: ");
-            
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
