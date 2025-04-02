@@ -5,11 +5,11 @@ import java.util.Date;
 public class Message {
     private int id;
     private String text;
-    private Persoon author;
+    private Person author;
     private Date date;
     private Thread thread;
 
-    public Message(int id, String text, Persoon author, Date date, Thread thread) {
+    public Message(int id, String text, Person author, Date date, Thread thread) {
         this.id = id;
         this.text = text;
         this.author = author;
@@ -25,7 +25,7 @@ public class Message {
         return text;
     }
 
-    public Persoon getAuthor() {
+    public Person getAuthor() {
         return author;
     }
 

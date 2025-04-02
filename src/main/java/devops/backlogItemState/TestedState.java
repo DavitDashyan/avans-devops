@@ -19,4 +19,9 @@ public class TestedState implements SprintBacklogItemState {
     public void finalState(BacklogItem backlogItem) {
         System.out.println("Cannot directly move to final state from Tested.");
     }
+
+    public void backToReadyForTesting(BacklogItem backlogItem) {
+        backlogItem.setState(new ReadyForTestingState());
+        System.out.println("BacklogItem moved to ReadyForTesting state.");
+    }
 }

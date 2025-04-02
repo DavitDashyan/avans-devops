@@ -33,4 +33,14 @@ public class ClosedState implements SprintState {
     public String getStatus() {
         return "Closed";
     }
+
+    @Override
+    public void startReview(Sprint sprint) {
+        System.out.println("Cannot start review for a sprint that is closed.");
+    }
+
+    @Override
+    public void startRelease(Sprint sprint) {
+        System.out.println("Cannot start release for a sprint that is closed.");
+    }
 }

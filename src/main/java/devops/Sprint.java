@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import devops.generateReport.*;
-import devops.sprintState.CreateState;
+import devops.sprintState.CreatedState;
 
 public abstract class Sprint {
     protected int id;
@@ -12,12 +12,12 @@ public abstract class Sprint {
     protected Date startDatum;
     protected Date endDatum;
     protected SprintBacklog sprintBacklog;
-    protected Persoon scrumMaster;
-    protected Persoon productOwners;
-    protected Persoon leadDeveloper;
-    protected List<Persoon> developers;
-    protected List<Persoon> testers;
-    protected SprintState state = new CreateState();
+    protected Person scrumMaster;
+    protected Person productOwners;
+    protected Person leadDeveloper;
+    protected List<Person> developers;
+    protected List<Person> testers;
+    protected SprintState state = new CreatedState();
 
     public void setState(SprintState state) {
         this.state = state;
@@ -41,6 +41,14 @@ public abstract class Sprint {
 
     public void closeSprint() {
         state.closeSprint(this);
+    }
+
+    public void startReview() {
+        state.startReview(this);
+    }
+
+    public void startRelease() {
+        state.startRelease(this);
     }
 
     public String getStatus() {

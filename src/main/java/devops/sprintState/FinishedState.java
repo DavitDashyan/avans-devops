@@ -34,4 +34,16 @@ public class FinishedState implements SprintState {
     public String getStatus() {
         return "Finished";
     }
+
+    @Override
+    public void startReview(Sprint sprint) {
+        sprint.setState(new ReviewingState());
+        System.out.println("Sprint moved to Reviewing state.");
+    }
+
+    @Override
+    public void startRelease(Sprint sprint) {
+        sprint.setState(new ReleasingState());
+        System.out.println("Sprint moved to Releasing state.");
+    }
 }

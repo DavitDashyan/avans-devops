@@ -1,6 +1,6 @@
 package devops;
 
-public class ProductOwner implements Persoon {
+public class ProductOwner implements Person {
     @Override
     public void performRoleSpecificTask() {
         System.out.println("Managing the product backlog.");

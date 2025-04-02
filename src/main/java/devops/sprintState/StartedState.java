@@ -36,4 +36,14 @@ public class StartedState implements SprintState {
     public String getStatus() {
         return "Started";
     }
+
+    @Override
+    public void startReview(Sprint sprint) {
+        System.out.println("Cannot start review for a sprint that is in progress.");
+    }
+
+    @Override
+    public void startRelease(Sprint sprint) {
+        System.out.println("Cannot start release for a sprint that is in progress.");
+    }
 }

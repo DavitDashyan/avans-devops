@@ -7,4 +7,6 @@ public interface SprintState {
     void lockSprint(Sprint sprint);
     void closeSprint(Sprint sprint);
     String getStatus();
+    void startReview(Sprint sprint);
+    void startRelease(Sprint sprint);
 }

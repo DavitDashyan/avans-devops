@@ -1,5 +1,5 @@
 package devops;
 
-public interface Persoon {
+public interface Person {
     void performRoleSpecificTask();
 }

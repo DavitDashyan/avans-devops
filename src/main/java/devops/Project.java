@@ -11,18 +11,18 @@ public class Project {
     private Date endDate;
     private ProjectBacklog projectBacklog;
     private List<Sprint> sprints;
-    private List<Persoon> team;
+    private List<Person> team;
     private IVersionControl versionControl;
 
     public Project(IVersionControl versionControl) {
         this.versionControl = versionControl;
     }
 
-    public void addTeamMember(Persoon teamMember) {
+    public void addTeamMember(Person teamMember) {
         team.add(teamMember);
     }
 
-    public void removeTeamMember(Persoon teamMember) {
+    public void removeTeamMember(Person teamMember) {
         team.remove(teamMember);
     }
 

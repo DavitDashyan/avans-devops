@@ -5,7 +5,7 @@ public class SubItem {
     private String title;
     private String description;
     private boolean done;
-    private Persoon assignedPerson;
+    private Person assignedPerson;
     private BacklogItem parentBacklogItem;
 
     public void changeState() {

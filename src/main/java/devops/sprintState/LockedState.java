@@ -35,4 +35,14 @@ public class LockedState implements SprintState {
     public String getStatus() {
         return "Locked";
     }
+
+    @Override
+    public void startReview(Sprint sprint) {
+        System.out.println("Cannot start review for a sprint that is locked.");
+    }
+
+    @Override
+    public void startRelease(Sprint sprint) {
+        System.out.println("Cannot start release for a sprint that is locked.");
+    }
 }

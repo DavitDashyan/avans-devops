@@ -1,6 +1,6 @@
 package devops;
 
-public class Tester implements Persoon {
+public class Tester implements Person {
     @Override
     public void performRoleSpecificTask() {
         System.out.println("Testing the application.");

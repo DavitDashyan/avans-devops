@@ -11,7 +11,7 @@ public class BacklogItem {
     private String title;
     private String description;
     private int priority;
-    private Persoon developer;
+    private Person developer;
     private List<SubItem> subItems;
     private SprintBacklogItemState sprintBacklogItemState;
     private boolean inSprintBacklog;
@@ -50,5 +50,9 @@ public class BacklogItem {
 
     public void moveToFinalState() {
         state.finalState(this);
+    }
+
+    public SprintBacklogItemState getState() {
+        return state;
     }
 }

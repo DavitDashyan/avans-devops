@@ -33,4 +33,14 @@ public class CanceledState implements SprintState {
     public String getStatus() {
         return "Canceled";
     }
+
+    @Override
+    public void startReview(Sprint sprint) {
+        System.out.println("Cannot start review for a sprint that is canceled.");
+    }
+
+    @Override
+    public void startRelease(Sprint sprint) {
+        System.out.println("Cannot start release for a sprint that is canceled.");
+    }
 }

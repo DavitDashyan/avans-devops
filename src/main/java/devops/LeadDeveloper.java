@@ -1,6 +1,6 @@
 package devops;
 
-public class LeadDeveloper implements Persoon {
+public class LeadDeveloper implements Person {
     @Override
     public void performRoleSpecificTask() {
         System.out.println("Leading the development team.");
