@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Sprint sprint = new ReviewSprint(); // Voorbeeld sprint
+        Sprint sprint = new ReviewSprint();
         boolean running = true;
 
         System.out.println("Welkom bij het DevOps CLI-systeem!");
@@ -21,7 +21,7 @@ public class App {
 
             System.out.print("Uw keuze: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:

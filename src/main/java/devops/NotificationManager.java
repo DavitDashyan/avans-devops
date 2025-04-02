@@ -11,7 +11,6 @@ public class NotificationManager implements IObserver {
 
     @Override
     public void update() {
-        // Handle the update and send notifications
         notificationService.sendNotification("A new event occurred.");
     }
 }

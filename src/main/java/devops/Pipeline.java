@@ -15,7 +15,7 @@ public class Pipeline {
     public boolean startPipeline() {
         PipelineStep currentStep = steps.get(0);
         while (currentStep != null) {
-            if (!currentStep.execute()) { // Removed PipelineContext
+            if (!currentStep.execute()) {
                 return false;
             }
             currentStep = currentStep.getNextStep();

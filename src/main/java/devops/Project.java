@@ -29,7 +29,6 @@ public class Project {
     public Sprint createSprint(String type, String title, String description, Date startDate, Date endDate) {
         Sprint sprint;
 
-        // Determine the type of sprint to create
         if (type.equalsIgnoreCase("review")) {
             sprint = new ReviewSprint();
         } else if (type.equalsIgnoreCase("deployment")) {
@@ -38,12 +37,10 @@ public class Project {
             throw new IllegalArgumentException("Invalid sprint type: " + type);
         }
 
-        // Set common sprint properties
         sprint.name = title;
         sprint.startDatum = startDate;
         sprint.endDatum = endDate;
 
-        // Add the sprint to the project
         sprints.add(sprint);
         return sprint;
     }

@@ -1,7 +1,7 @@
 package devops;
 
 public interface PipelineStep {
-    boolean execute(); // Removed PipelineContext
+    boolean execute();
     void setNextStep(PipelineStep nextStep);
     PipelineStep getNextStep();
     boolean hasSucceeded();

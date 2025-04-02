@@ -50,7 +50,6 @@ public abstract class Sprint {
     public Report generateReport(String reportType, String format) {
         ISprintReportFactory factory;
 
-        // Determine the report factory based on the report type
         switch (reportType.toLowerCase()) {
             case "burndownchart":
                 factory = new BurndownChartReportFactory();
@@ -65,11 +64,9 @@ public abstract class Sprint {
                 throw new IllegalArgumentException("Invalid report type: " + reportType);
         }
 
-        // Add header and footer to the report
         factory.addHeader();
         factory.addFooter();
 
-        // Generate the report in the specified format
         if (format.equalsIgnoreCase("pdf")) {
             IPDF pdfReport = factory.createPDF();
             pdfReport.savePDF();
