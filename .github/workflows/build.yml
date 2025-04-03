@@ -35,6 +35,9 @@ jobs:
       - name: Run tests
         run: mvn test
 
+      - name: Generate JaCoCo report
+        run: mvn jacoco:report
+
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
