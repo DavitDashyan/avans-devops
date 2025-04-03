@@ -62,6 +62,11 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
+          <configuration>
+            <includes>
+              <include>**/*Test.java</include>
+            </includes>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
@@ -97,19 +102,21 @@
                 </execution>
                 <execution>
                     <id>report</id>
-                    <phase>verify</phase>
+                    <phase>verify</phase>rectory>${project.build.directory}/site/jacoco</outputDirectory>
                     <goals>
-                        <goal>report</goal>
+                        <goal>report</goal>t>XML</report>
                     </goals>
-                    <configuration>
-                        <reports>
-                            <report>XML</report>
-                        </reports>
+                    <configuration>uration>
+                        <reports>on>
+                            <report>XML</report>cutions>
+                        </reports>>
                     </configuration>
-                </execution>
+                </execution>inManagement>
             </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-</project>
+        </plugin></project>
+
+
+
+
+
+</project>  </build>    </pluginManagement>      </plugins>
