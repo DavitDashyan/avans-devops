@@ -5,7 +5,6 @@ import java.util.List;
 import devops.backlogItemState.SprintBacklogItemState;
 import devops.backlogItemState.ToDoState;
 import devops.backlogItemState.ReadyForTestingState;
-import devops.backlogItemState.TestedState;
 
 public class BacklogItem {
     private int id;
@@ -52,15 +51,7 @@ public class BacklogItem {
     }
 
     public void moveToNextState() {
-        if (state instanceof TestedState && !areAllSubItemsDone()) {
-            System.out.println("Cannot move to Done state. Not all sub-items are marked as done.");
-            return;
-        }
         state.nextState(this);
-    }
-
-    private boolean areAllSubItemsDone() {
-        return subItems != null && subItems.stream().allMatch(SubItem::isDone);
     }
 
     public void moveToFinalState() {
@@ -77,5 +68,9 @@ public class BacklogItem {
 
     public Person getDeveloper() {
         return developer;
+    }
+
+    public List<SubItem> getSubItems() {
+        return subItems;
     }
 }
