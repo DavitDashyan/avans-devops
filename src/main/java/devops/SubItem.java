@@ -1,5 +1,7 @@
 package devops;
 
+import devops.backlogItemState.SprintBacklogItemState;
+
 public class SubItem {
     private int id;
     private String title;
@@ -7,6 +9,7 @@ public class SubItem {
     private boolean done;
     private Person assignedPerson;
     private BacklogItem parentBacklogItem;
+    private SprintBacklogItemState state;
 
     public SubItem(int id, String title, String description, Person assignedPerson) {
         this.id = id;
@@ -34,5 +37,13 @@ public class SubItem {
 
     public boolean isDone() {
         return done;
+    }
+
+    public SprintBacklogItemState getState() {
+        return state;
+    }
+
+    public void setState(SprintBacklogItemState state) {
+        this.state = state;
     }
 }

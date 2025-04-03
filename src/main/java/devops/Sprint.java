@@ -52,7 +52,10 @@ public abstract class Sprint {
     }
 
     public String getStatus() {
-        return state.getStatus();
+        if (state != null) {
+            return state.getStatus();
+        }
+        return "Unknown";
     }
 
     public Report generateReport(String reportType, String format) {

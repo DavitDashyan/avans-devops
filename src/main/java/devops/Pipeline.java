@@ -17,6 +17,14 @@ public class Pipeline {
     }
 
     public boolean startPipeline() {
+        if (steps == null) {
+            throw new NullPointerException("Pipeline steps cannot be null.");
+        }
+        if (steps.isEmpty()) {
+            System.out.println("Pipeline has no steps to execute.");
+            return false;
+        }
+
         PipelineStep currentStep = steps.get(0);
         while (currentStep != null) {
             if (!currentStep.execute()) {

@@ -5,8 +5,7 @@ import devops.BacklogItem;
 public class TestedState implements SprintBacklogItemState {
     @Override
     public void firstState(BacklogItem backlogItem) {
-        backlogItem.setState(new ToDoState());
-        System.out.println("BacklogItem moved back to ToDo state.");
+        System.out.println("Invalid transition: Cannot move directly from Tested to ToDo state.");
     }
 
     @Override

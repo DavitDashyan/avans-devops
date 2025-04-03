@@ -11,6 +11,9 @@ public class Discussion {
     private List<Thread> threads = new ArrayList<>();
 
     public void addThread(Thread thread) {
+        if (thread == null) {
+            throw new IllegalArgumentException("Thread cannot be null.");
+        }
         threads.add(thread);
     }
 

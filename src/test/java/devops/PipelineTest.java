@@ -68,4 +68,16 @@ class PipelineTest {
 
         assertFalse(pipeline.hasSucceeded());
     }
+
+    @Test
+    void testStartPipelineWithNoSteps() {
+        pipeline.setSteps(List.of());
+        assertFalse(pipeline.startPipeline());
+    }
+
+    @Test
+    void testStartPipelineWithNullSteps() {
+        pipeline.setSteps(null);
+        assertThrows(NullPointerException.class, () -> pipeline.startPipeline());
+    }
 }

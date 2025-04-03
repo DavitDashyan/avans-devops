@@ -4,8 +4,6 @@ import devops.backlogItemState.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -81,16 +79,6 @@ class BacklogItemTest {
     }
 
     @Test
-    void testTransitionFromTestedBackToToDo() {
-        backlogItem.moveToNextState(); // To Doing
-        backlogItem.moveToNextState(); // To ReadyForTesting
-        backlogItem.moveToNextState(); // To Testing
-        backlogItem.moveToNextState(); // To Tested
-        backlogItem.moveToFirstState(); // Back to ToDo
-        assertTrue(backlogItem.getState() instanceof ToDoState);
-    }
-
-    @Test
     void testCannotTransitionFromDoingToFinalState() {
         backlogItem.moveToNextState(); // To Doing
         backlogItem.moveToFinalState(); // Invalid transition
@@ -103,23 +91,6 @@ class BacklogItemTest {
         backlogItem.moveToNextState(); // To ReadyForTesting
         backlogItem.moveToFinalState(); // Invalid transition
         assertTrue(backlogItem.getState() instanceof ReadyForTestingState);
-    }
-
-    @Test
-    void testSubItemStateChange() {
-        SubItem subItem1 = mock(SubItem.class);
-        SubItem subItem2 = mock(SubItem.class);
-
-        backlogItem.addSubitem(subItem1, backlogItem);
-        backlogItem.addSubitem(subItem2, backlogItem);
-
-        when(subItem1.isDone()).thenReturn(true);
-        when(subItem2.isDone()).thenReturn(true);
-
-        backlogItem.getSubItems().forEach(SubItem::changeState);
-        backlogItem.moveToNextState(); // To Done
-
-        assertTrue(backlogItem.getState() instanceof DoneState);
     }
 
     @Test

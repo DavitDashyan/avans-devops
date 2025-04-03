@@ -21,6 +21,9 @@ public class Thread {
     }
 
     public void addMessage(Message message) {
+        if (message == null) {
+            throw new IllegalArgumentException("Message cannot be null.");
+        }
         if (!locked && !backlogItem.isStateEqualToReadyForTesting()) {
             messages.add(message);
         } else {
@@ -29,6 +32,9 @@ public class Thread {
     }
 
     public void removeMessage(Message message) {
+        if (message == null) {
+            throw new IllegalArgumentException("Message cannot be null.");
+        }
         if (!locked && !backlogItem.isStateEqualToReadyForTesting()) {
             messages.remove(message);
         } else {

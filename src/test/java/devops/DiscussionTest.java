@@ -33,4 +33,9 @@ class DiscussionTest {
         discussion.addThread(thread);
         assertEquals(1, discussion.getThreads().size());
     }
+
+    @Test
+    void testAddNullThread() {
+        assertThrows(IllegalArgumentException.class, () -> discussion.addThread(null));
+    }
 }

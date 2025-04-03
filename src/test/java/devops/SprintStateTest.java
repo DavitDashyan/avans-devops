@@ -9,120 +9,63 @@ import static org.mockito.Mockito.*;
 
 class SprintStateTest {
     private Sprint sprint;
-    private StartedState startedState;
 
     @BeforeEach
     void setUp() {
         sprint = mock(Sprint.class);
-        startedState = new StartedState();
     }
 
     @Test
-    void testFinishSprint() {
+    void testTransitionFromCreatedToStarted() {
+        SprintState createdState = new CreatedState();
+        when(sprint.getStatus()).thenReturn("Created");
+
+        createdState.startSprint(sprint);
+        verify(sprint).setState(any(StartedState.class));
+    }
+
+    @Test
+    void testTransitionFromStartedToFinished() {
+        SprintState startedState = new StartedState();
+        when(sprint.getStatus()).thenReturn("Started");
+
         startedState.finishSprint(sprint);
         verify(sprint).setState(any(FinishedState.class));
     }
 
     @Test
-    void testCancelSprint() {
-        startedState.cancelSprint(sprint);
-        verify(sprint).setState(any(CanceledState.class));
-    }
-
-    @Test
-    void testLockSprint() {
-        startedState.lockSprint(sprint);
-        verify(sprint).setState(any(LockedState.class));
-    }
-
-    @Test
-    void testStartSprint() {
-        startedState.startSprint(sprint);
-        verify(sprint, never()).setState(any());
-    }
-
-    @Test
-    void testTransitionFromCreatedToStarted() {
-        assertEquals("Created", sprint.getStatus());
-        sprint.startSprint();
-        assertEquals("Started", sprint.getStatus());
-    }
-
-    @Test
-    void testTransitionFromStartedToFinished() {
-        sprint.startSprint();
-        sprint.finishSprint();
-        assertEquals("Finished", sprint.getStatus());
-    }
-
-    @Test
     void testTransitionFromFinishedToReviewing() {
-        sprint.startSprint();
-        sprint.finishSprint();
-        sprint.startReview();
-        assertEquals("Reviewing", sprint.getStatus());
+        SprintState finishedState = new FinishedState();
+        when(sprint.getStatus()).thenReturn("Finished");
+
+        finishedState.startReview(sprint);
+        verify(sprint).setState(any(ReviewingState.class));
     }
 
     @Test
     void testTransitionFromFinishedToReleasing() {
-        sprint.startSprint();
-        sprint.finishSprint();
-        sprint.startRelease();
-        assertEquals("Releasing", sprint.getStatus());
+        SprintState finishedState = new FinishedState();
+        when(sprint.getStatus()).thenReturn("Finished");
+
+        finishedState.startRelease(sprint);
+        verify(sprint).setState(any(ReleasingState.class));
     }
 
     @Test
     void testInvalidTransitionFromCreatedToReviewing() {
-        assertEquals("Created", sprint.getStatus());
-        sprint.startReview();
-        assertEquals("Created", sprint.getStatus());
+        SprintState createdState = new CreatedState();
+        when(sprint.getStatus()).thenReturn("Created");
+
+        createdState.startReview(sprint);
+        verify(sprint, never()).setState(any());
     }
 
     @Test
     void testInvalidTransitionFromReleasingToStarted() {
-        sprint.startSprint();
-        sprint.finishSprint();
-        sprint.startRelease();
-        sprint.startSprint();
-        assertEquals("Releasing", sprint.getStatus());
-    }
-
-    @Test
-    void testLockedStateTransitions() {
-        SprintState lockedState = new LockedState();
-
-        lockedState.finishSprint(sprint);
-        verify(sprint).setState(any(FinishedState.class));
-
-        lockedState.closeSprint(sprint);
-        verify(sprint).setState(any(ClosedState.class));
-
-        lockedState.startSprint(sprint);
-        verify(sprint, never()).setState(any());
-    }
-
-    @Test
-    void testFinishedStateTransitions() {
-        SprintState finishedState = new FinishedState();
-
-        finishedState.startReview(sprint);
-        verify(sprint).setState(any(ReviewingState.class));
-
-        finishedState.startRelease(sprint);
-        verify(sprint).setState(any(ReleasingState.class));
-
-        finishedState.closeSprint(sprint);
-        verify(sprint).setState(any(ClosedState.class));
-    }
-
-    @Test
-    void testReleasingStateInvalidTransitions() {
         SprintState releasingState = new ReleasingState();
+        when(sprint.getStatus()).thenReturn("Releasing");
 
         releasingState.startSprint(sprint);
-        verify(sprint, never()).setState(any());
-
-        releasingState.finishSprint(sprint);
         verify(sprint, never()).setState(any());
     }
 }

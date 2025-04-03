@@ -1,5 +1,6 @@
 package devops;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import devops.backlogItemState.SprintBacklogItemState;
@@ -12,7 +13,7 @@ public class BacklogItem {
     private String description;
     private int priority;
     private Person developer;
-    private List<SubItem> subItems;
+    private List<SubItem> subItems = new ArrayList<>();
     private SprintBacklogItemState state = new ToDoState();
     private boolean inSprintBacklog;
 
