@@ -12,6 +12,10 @@ public class Pipeline {
         this.sprintToLock = sprint;
     }
 
+    public void setSteps(List<PipelineStep> steps) {
+        this.steps = steps;
+    }
+
     public boolean startPipeline() {
         PipelineStep currentStep = steps.get(0);
         while (currentStep != null) {
