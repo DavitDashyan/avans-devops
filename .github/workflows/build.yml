@@ -32,12 +32,6 @@ jobs:
       - name: Install dependencies
         run: mvn install
 
-      - name: Run tests
-        run: mvn test
-
-      - name: Generate JaCoCo report
-        run: mvn jacoco:report
-
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -49,5 +43,6 @@ jobs:
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}" \
             -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
 
-      
+      - name: Run tests
+        run: mvn test
  
