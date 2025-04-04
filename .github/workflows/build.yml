@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: mvn install
 
-        working-directory: /src
+        working-directory: ./src
 
       - name: SonarCloud Scan
         env:
@@ -47,4 +47,4 @@ jobs:
 
       - name: Run tests
         run: mvn test
-        working-directory: /src
+        working-directory: ./src
