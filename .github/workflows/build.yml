@@ -32,6 +32,8 @@ jobs:
       - name: Install dependencies
         run: mvn install
 
+        working-directory: /src
+
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -45,3 +47,4 @@ jobs:
 
       - name: Run tests
         run: mvn test
+        working-directory: /src
