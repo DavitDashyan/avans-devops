@@ -4,10 +4,6 @@ import java.util.Date;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("Running application...");
-        // Voeg een eenvoudige testuitvoer toe
-        System.out.println("Application setup complete.");
-
         // Create a project
         IVersionControl versionControl = new GitAdapter(new GitService());
         Project project = new Project(1, "DevOps Project", "A project for DevOps practices", new Date(), new Date(), versionControl);
