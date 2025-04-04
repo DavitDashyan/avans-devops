@@ -103,4 +103,10 @@ class BacklogItemTest {
         backlogItem.moveToFirstState(); // Invalid transition
         assertFalse(backlogItem.getState() instanceof ToDoState);
     }
+
+    @Test
+    void testReturnNumberEight() {
+        BacklogItem backlogItem = new BacklogItem(1, "Test", "Description", 1);
+        assertEquals(8, backlogItem.returnNumberEight(), "The method should return 8");
+    }
 }

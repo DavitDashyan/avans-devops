@@ -74,4 +74,8 @@ public class BacklogItem {
     public List<SubItem> getSubItems() {
         return subItems;
     }
+
+    public int returnNumberEight() {
+        return 8;
+    }
 }
