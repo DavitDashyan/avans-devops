@@ -34,6 +34,10 @@ jobs:
         run: mvn install
         working-directory: .
 
+      - name: Run Verify
+        run: mvn verify
+        working-directory: .
+
       - name: Verify Jacoco Report
         run: ls -l target/site/jacoco
         working-directory: .
@@ -48,10 +52,6 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}" \
             -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
-        working-directory: .
-
-      - name: Run Verify
-        run: mvn verify
         working-directory: .
 
       - name: Run tests

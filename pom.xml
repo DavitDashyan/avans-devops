@@ -112,6 +112,10 @@
                     </configuration>
                 </execution>
             </executions>
+            <configuration>
+                <append>true</append>
+                <destFile>${project.build.directory}/jacoco.exec</destFile>
+            </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
