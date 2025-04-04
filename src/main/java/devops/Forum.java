@@ -11,6 +11,7 @@ public class Forum {
     private List<Discussion> threads = new ArrayList<>();
 
     public void addDiscussion(Discussion discussion) {
+        
         threads.add(discussion);
     }
 
