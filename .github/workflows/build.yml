@@ -49,6 +49,14 @@ jobs:
             -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
         working-directory: .
 
-      - name: Run tests
-        run: mvn test
+      - name: Run Verify
+        run: mvn verify
+        working-directory: .
+
+
+
+
+
+        working-directory: .        run: mvn test      - name: Run tests      - name: Check Test Output
+        run: cat target/surefire-reports/*.txt || echo "No test output found"
         working-directory: .
