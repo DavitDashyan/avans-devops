@@ -5,7 +5,7 @@ public class ReviewSprint extends Sprint {
     private Document reviewDocument;
 
     public void endSprintReview() {
-        // ...implementation...
+        System.out.println("Sprint review is beëindigd!");
     }
 
     public void uploadReview(Document document) {

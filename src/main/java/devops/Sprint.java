@@ -23,6 +23,10 @@ public abstract class Sprint {
         this.state = state;
     }
 
+    public SprintState getState() {
+        return state;
+    }
+
     public void startSprint() {
         state.startSprint(this);
     }

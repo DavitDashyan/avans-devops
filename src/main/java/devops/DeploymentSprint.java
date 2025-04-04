@@ -8,11 +8,11 @@ public class DeploymentSprint extends Sprint {
     private Date releaseDatum;
 
     public void resultsGoodEnough() {
-        // ...implementation...
+        System.out.println("Resultaten zijn goed genoeg!");
     }
 
     public void startDeployment() {
-        // ...implementation...
+        System.out.println("Deployment gestart!");
     }
 
     public void checkDeployment() {
