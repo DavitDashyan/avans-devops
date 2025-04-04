@@ -31,8 +31,7 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Install dependencies
         run: mvn install
-
-        working-directory: ./src
+        working-directory: .
 
       - name: SonarCloud Scan
         env:
@@ -44,8 +43,8 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}" \
             -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
-        working-directory: ./src
+        working-directory: .
 
       - name: Run tests
         run: mvn test
-        working-directory: ./src
+        working-directory: .
